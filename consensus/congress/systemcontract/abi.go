@@ -1,6 +1,7 @@
 package systemcontract
 
 import (
+	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
@@ -584,7 +585,9 @@ func GetValidatorAddr(blockNum *big.Int, config *params.ChainConfig) *common.Add
 
 func GetPunishAddr(blockNum *big.Int, config *params.ChainConfig) *common.Address {
 	if config.IsRedCoast(blockNum) {
+		fmt.Printf("--GetPunishAddr IsRedCoast v1 %X \n", PunishV1ContractAddr)
 		return &PunishV1ContractAddr
 	}
+	fmt.Printf("--GetPunishAddr Not IsRedCoast v0 %X \n", PunishContractAddr)
 	return &PunishContractAddr
 }

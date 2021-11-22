@@ -714,6 +714,7 @@ func (c *Congress) FinalizeAndAssemble(chain consensus.ChainHeaderReader, header
 		}
 	}
 
+	fmt.Printf("---header.Difficulty %d  num %d \n", header.Difficulty.Int64(), header.Number.Int64())
 	// punish validator if necessary
 	if header.Difficulty.Cmp(diffInTurn) != 0 {
 		if err := c.tryPunishValidator(chain, header, state); err != nil {

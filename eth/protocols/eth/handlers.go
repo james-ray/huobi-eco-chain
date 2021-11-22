@@ -180,6 +180,7 @@ func handleGetNodeData(backend Backend, msg Decoder, peer *Peer) error {
 	if err := msg.Decode(&query); err != nil {
 		return fmt.Errorf("%w: message %v: %v", errDecode, msg, err)
 	}
+	fmt.Println("---handleGetNodeData")
 	response := answerGetNodeDataQuery(backend, query, peer)
 	return peer.SendNodeData(response)
 }

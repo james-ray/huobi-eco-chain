@@ -221,6 +221,7 @@ func handleMessage(backend Backend, peer *Peer) error {
 
 	var handlers = eth65
 	if peer.Version() >= ETH66 {
+		fmt.Println("--- eth66")
 		handlers = eth66
 	}
 	// Track the amount of time it takes to serve the request and run the handler
@@ -235,7 +236,9 @@ func handleMessage(backend Backend, peer *Peer) error {
 			metrics.GetOrRegisterHistogramLazy(h, nil, sampler).Update(time.Since(start).Microseconds())
 		}(time.Now())
 	}
+	fmt.Printf("---receive msg %v code %v handlers %v \n", msg, msg.Code, handlers)
 	if handler := handlers[msg.Code]; handler != nil {
+		fmt.Printf("---handler %v \n", handler)
 		return handler(backend, msg, peer)
 	}
 	return fmt.Errorf("%w: %v", errInvalidMsgCode, msg.Code)

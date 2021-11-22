@@ -499,7 +499,7 @@ func (p *Peer) RequestBodies(hashes []common.Hash) error {
 // RequestNodeData fetches a batch of arbitrary data from a node's known state
 // data, corresponding to the specified hashes.
 func (p *Peer) RequestNodeData(hashes []common.Hash) error {
-	p.Log().Debug("Fetching batch of state data", "count", len(hashes))
+	p.Log().Info("Fetching batch of state data", "count", len(hashes))
 	if p.Version() >= ETH66 {
 		id := rand.Uint64()
 
