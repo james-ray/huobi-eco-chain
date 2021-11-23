@@ -52,7 +52,7 @@ func (c *Congress) getPassedProposalCount(chain consensus.ChainHeaderReader, hea
 		return 0, err
 	}
 	if len(ret) != 1 {
-		return 0, errors.New("invalid output length")
+		return 0, errors.New("invalid output length of getPassedProposalCount")
 	}
 	count, ok := ret[0].(uint32)
 	if !ok {
@@ -104,6 +104,7 @@ func (c *Congress) finishProposalById(chain consensus.ChainHeaderReader, header 
 	state.Prepare(common.Hash{}, 0)
 	_, err = vmcaller.ExecuteMsg(msg, state, header, newChainContext(chain, c), c.chainConfig)
 	if err != nil {
+		log.Error("Can't finishProposalById", "error", err)
 		return err
 	}
 

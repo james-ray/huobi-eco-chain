@@ -806,6 +806,7 @@ func (c *Congress) trySendBlockReward(chain consensus.ChainHeaderReader, header 
 	msg := vmcaller.NewLegacyMessage(header.Coinbase, systemcontract.GetValidatorAddr(header.Number, c.chainConfig), nonce, fee, math.MaxUint64, new(big.Int), data, true)
 
 	if _, err := vmcaller.ExecuteMsg(msg, state, header, newChainContext(chain, c), c.chainConfig); err != nil {
+		log.Error("Can't trySendBlockReward", "err", err)
 		return err
 	}
 
